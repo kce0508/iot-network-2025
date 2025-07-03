@@ -71,6 +71,16 @@ loT  네트워크 프로그래밍 리포지토리 2025
 ## 2일차
 
 #### 소켓 주소 구조체
+
+##### 기본 구조
+```c++
+    struct sockaddr_in {
+        unsigned short sin_family;  // IPv4 주소체계(AP_INET)
+        struct in_addr sin_addr;    // IP 주소
+        unit16_t sin port;          // Port
+    }
+```
+
 - 네트워크 통신에 필요한 주소를 담는 구조체
 - 다양한 소켓 함수의 인수로 전달하여 사용
 - sockaddr : 대표타입, 소켓 함수의 인수타입으로 사용
