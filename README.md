@@ -132,4 +132,55 @@ loT  네트워크 프로그래밍 리포지토리 2025
 
 ## 5일차
 
-웹페이지에서 이미지파일만 
+## 라즈베리파이
+- sudo apt update
+- pinout : 핀번호 확인
+- python button.py
+- python -m venv --system-site-package env (가상 환경)
+    ~/PiSrc/env/bin $ source activate
+
+    <img src = "./image/net0008.png" width="500">
+
+
+
+
+#### 전자
+
+- 모든 전류는 GND 로 흐른다 (5V -> GND)
+
+- 키르히호프 법칙 : 병렬로 연결하면 전압은 같다
+                    직렬로 연결하면 전류가 일정
+
+- 아날로그 : 연속적인 값
+- 디지털 : 이산적인 값 (0, 1)
+    - 디지털을 사용하는 이유 : 아날로그가 정보의 양이 많지만 정보의 오염성이 크고, 디지털이 정보의 오염이 적기 때문에 디지털을 사용한다.
+
+
+- RPi.GPIO 모듈
+    - GPIO.setmode(GPIO.BOARD)      // wPi
+    - GPIO.setmode(GPIO.BCM)        // BCM
+    - GPIO.setup(channel, GPIO.mode)    // 사용할 핀의 모드 설정( IN / OUT)
+    - GPIO.cleanup()                // 모든 핀 초기화
+    - GPIO.output(channel, state)   // HIGH(1) / LOW(0)
+    - GPIO.input(channel)
+
+- 저항
+    - 풀업 저항 : GPIO 입력 핀이 아무 입력도 없을 때 기본 값을 HIGH(1)로 유지하도록 끌어올려주는 저항
+        - GPIO 입력 핀은 연결 안하면 떠다니는 상태(Floating)가 돼서 -> 확실히 1로 고정시켜주기 위해 풀업 저항을 씀
+
+        - 풀업 회로 예시
+        <img src = "./image/net0007.png" width="300">
+
+            - 스위치 열림 -> 전류가 안흐르니까 풀업 저항이 GPIO를 VCC로 끌어올림 -> HIGH
+            - 스위치 닫힘 -> GPIO가 GND랑 직접 연결 -> LOW
+
+    - 풀다운 저항 : GPIO 핀이 공중에 뜨지않게(GND로 잡아주게) 만드는 저항
+        - 스위치가 떨어졌을때(GPIO 입력이 없는 상태) -> GND 쪽으로 전류가 흘러가게 해서 안정적인 0(LOW)를 읽도록 해줌
+
+        - 풀다운 회로 예시
+        <img src = "./image/net0006.png" width="250">
+            
+            - 스위치 열림 -> GPIO는 GND와 연결 -> LOW
+            - 스위치 닫힘 -> GPIO는 VCC와 연결 -> HIGH
+
+        
